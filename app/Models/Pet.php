@@ -16,6 +16,8 @@ class Pet extends Model
     public const DESCRIPTION = 'description';
     public const STATUS = 'status';
     public const USER_ID = 'user_id';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
 
     protected $fillable = [Pet::NAME, Pet::AGE, Pet::SPECIES, Pet::BREED, Pet::DESCRIPTION, Pet::STATUS];
 
