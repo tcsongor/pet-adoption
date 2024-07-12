@@ -1,11 +1,20 @@
 <?php
 
-use App\Constants\RouteURLs;
-use App\Http\Controllers\PetsController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get(RouteURLs::PETS_ENDPOINT, [PetsController::class, 'getPets'])->name('r1');
-Route::get(RouteURLs::PETS_ENDPOINT_WITH_ID, [PetsController::class, 'getPetById'])->name('r2');
-Route::post(RouteURLs::PETS_ENDPOINT, [PetsController::class, 'createPet'])->name('r3');
-Route::put(RouteURLs::PETS_ENDPOINT_WITH_ID, [PetsController::class, 'updatePet'])->name('r4');
-Route::delete(RouteURLs::PETS_ENDPOINT_WITH_ID, [PetsController::class, 'deletePet'])->name('r5');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
