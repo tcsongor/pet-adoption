@@ -44,6 +44,14 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "create-database": [
+            "@php artisan migrate",
+            "@php artisan db:seed"
+        ],
+        "recreate-database": [
+            "@php artisan migrate:reset",
+            "@composer create-database"
         ]
     },
     "extra": {
