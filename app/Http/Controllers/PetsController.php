@@ -20,13 +20,9 @@ class PetsController extends Controller
         return $this->petService->getAllPets();
     }
 
-    public function getPetById(Request $request, string $pet_id)
+    public function getPetById(int $pet_id)
     {
-        $request->validate([
-            'pet_id' => ['required', 'integer']
-        ]);
-
-        return $this->petService->getPetById($request->input('pet_id'));
+        return $this->petService->getPetById($pet_id);
     }
 
     public function createPet(Request $request)
@@ -56,7 +52,6 @@ class PetsController extends Controller
     public function updatePet(Request $request, int $pet_id)
     {
         $request->validate([
-            'pet_id' => ['required', 'integer'],
             Pet::NAME => ['string'],
             Pet::DESCRIPTION => ['string'],
             Pet::STATUS => [Rule::enum(PetStatus::class)],
@@ -75,16 +70,12 @@ class PetsController extends Controller
             Pet::BREED
         ]);
 
-        return $this->petService->updatePet($request->input('pet_id'), $attributes);
+        return $this->petService->updatePet($pet_id, $attributes);
     }
 
 
     public function deletePet(Request $request, int $pet_id)
     {
-        $request->validate([
-            'pet_id' => ['required', 'integer']
-        ]);
-
-        $this->petService->deletePet($request->input('pet_id'));
+        $this->petService->deletePet($pet_id);
     }
 }

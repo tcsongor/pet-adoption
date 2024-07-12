@@ -7,8 +7,7 @@ use App\Constants\PetSpecies;
 use App\Constants\PetStatus;
 use App\Models\User;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->nullable(false);
-            $table->integer('age');
+            $table->integer('age')->nullable(true);
             $table->enum('species', PetSpecies::valuesToArray())->nullable(false);
-            $table->string('breed');
-            $table->string('description');
+            $table->string('breed')->nullable(true);
+            $table->string('description')->nullable(true);
             $table->enum('status', PetStatus::valuesToArray())->nullable(false);
 
             $table->foreignIdFor(User::class)->nullable(false);
