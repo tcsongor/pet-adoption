@@ -17,7 +17,15 @@ class PetsController extends Controller
 
     public function getPets(Request $request)
     {
-        return $this->petService->getAllPets();
+        $request->validate([
+            Pet::STATUS => [Rule::enum(PetStatus::class)],
+            Pet::SPECIES => [Rule::enum(PetSpecies::class)],
+        ]);
+
+        return $this->petService->getAllPetsFiltered(
+            $request->enum(Pet::STATUS, PetStatus::class),
+            $request->enum(Pet::SPECIES, PetSpecies::class)
+        );
     }
 
     public function getPetById(int $pet_id)
