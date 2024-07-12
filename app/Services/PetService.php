@@ -35,11 +35,13 @@ class PetService
 
     public function updatePet(int $petId, array $attributes)
     {
+        // TODO: check if user id matches the use of the pet listing and return 403 if not
         $this->throwIfPetDoesNotExist($petId);
         $updatedPet = $this->petRepository->updatePet($petId, $attributes);
     }
     public function deletePet(int $petId)
     {
+        // TODO: check if user id matches the use of the pet listing and return 403 if not
         $this->throwIfPetDoesNotExist($petId);
         return $this->petRepository->deletePet($petId);
     }
